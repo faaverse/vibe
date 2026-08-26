@@ -1,10 +1,12 @@
 import { Elysia } from "elysia";
 import { db } from "./db";
 import { users } from "./db/schema";
+import { usersRoute } from "./routes/users-route";
 
 const port = process.env.PORT || 3000;
 
-const app = new Elysia()
+export const app = new Elysia()
+  .use(usersRoute)
   .get("/", () => ({ message: "Hello World" }))
   .get("/users", async () => {
     try {
@@ -15,6 +17,7 @@ const app = new Elysia()
     }
   })
   .listen(port);
+
 
 console.log(
   `🦊 Elysia is running at ${app.server?.hostname}:${app.server?.port}`
